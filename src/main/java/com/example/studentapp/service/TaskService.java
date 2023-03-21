@@ -5,10 +5,12 @@ import com.example.studentapp.model.StudentModel;
 import com.example.studentapp.model.TaskModel;
 import com.example.studentapp.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -19,7 +21,6 @@ public class TaskService {
     public void addTask(TaskModel task) {
         repo.save(task);
     }
-
 
     public List<TaskModel> getTasksList() {
         return repo.findAll();
@@ -38,6 +39,21 @@ public class TaskService {
     public void removeTask(Long id) {
         repo.deleteById(id);
     }
+
+
+
+    public void updateTaskDescription(Long id, String description){
+        repo.updateDescriptionById(id, description);
+    }
+
+
+    public List<TaskModel> findByColor(String color){
+        List<TaskModel> colorList = repo.findByColor(color);
+        log.info("obiekt koloru", colorList);
+        return colorList;
+    }
+
+
 
 
 }
