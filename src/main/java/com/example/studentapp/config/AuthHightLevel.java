@@ -2,10 +2,8 @@ package com.example.studentapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +15,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class AuthHightLevel extends WebSecurityConfigurerAdapter {
+public class AuthHightLevel {
 
     @Bean
     protected PasswordEncoder passwordEncoder() {
@@ -39,7 +37,8 @@ public class AuthHightLevel extends WebSecurityConfigurerAdapter {
     }
 
 
-    private SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/students") // mają dostęp wszyscy użytkownicy z ROLE_USER
                 .hasAnyAuthority("ROLE_USER")
